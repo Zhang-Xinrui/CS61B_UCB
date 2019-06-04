@@ -4,8 +4,8 @@ import edu.princeton.cs.introcs.StdStats;
 
 public class PercolationStats {
     private double mean, stddev, confidenceLow, confidenceHigh;
-    int [] numbers;
-    double[] fractions;
+    private int [] numbers;
+    private double[] fractions;
    /* public static void main(String[] args) {
         PercolationFactory pf = new PercolationFactory();
         PercolationStats a = new PercolationStats(100, 200, pf);
