@@ -30,19 +30,19 @@ public class Percolation {
         return r * n + c + 1;
     }
 
-    public void validate(int row, int col) {
+    private void validate(int row, int col) {
         if (validat(row, col)) {
             return;
         }
         throw new IndexOutOfBoundsException("out of bounds");
     }
-    public boolean validat(int row, int col) {
+    private boolean validat(int row, int col) {
         if (row >= 0 && row < n && col >= 0 && col < n) {
             return true;
         }
         return false;
     }
-    public void set(int row1, int col1, int row2, int col2) {
+    private void set(int row1, int col1, int row2, int col2) {
         if (validat(row1, col1) && sites[row1][col1] == 1) {
             sets.union(xyTo1D(row1, col1), xyTo1D(row2, col2));
             newset.union(xyTo1D(row1, col1), xyTo1D(row2, col2));

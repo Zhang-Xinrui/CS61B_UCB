@@ -6,11 +6,11 @@ public class PercolationStats {
     private double mean, stddev, confidenceLow, confidenceHigh;
     int [] numbers;
     double[] fractions;
-    public static void main(String[] args) {
+   /* public static void main(String[] args) {
         PercolationFactory pf = new PercolationFactory();
         PercolationStats a = new PercolationStats(100, 200, pf);
         System.out.print(a.mean);
-    }
+    }*/
     public PercolationStats(int N, int T, PercolationFactory pf) {
         if (T <= 0 || N <= 0) {
             throw new java.lang.IllegalArgumentException("T or N <= 0");
