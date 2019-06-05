@@ -1,5 +1,6 @@
 package hw3.hash;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class OomageTestUtility {
@@ -12,6 +13,20 @@ public class OomageTestUtility {
          * and ensure that no bucket has fewer than N / 50
          * Oomages and no bucket has more than N / 2.5 Oomages.
          */
-        return false;
+        int[] frequency = new int[M];
+        int N = 0;
+        Iterator iter = oomages.listIterator();
+        while (iter.hasNext()) {
+            N++;
+            frequency[(iter.next().hashCode() & 0x7FFFFFFF) % M]++;
+        }
+        double min = (double)N / 50;
+        double max = N / 2.5;
+        for (int i = 0; i < M; i++) {
+            if (frequency[i] < min || frequency[i] > max) {
+                return false;
+            }
+        }
+        return true;
     }
 }
