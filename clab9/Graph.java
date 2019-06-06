@@ -19,7 +19,12 @@ public class Graph {
             nodes.put(label, new Node(label));
         }
     }
-
+    /**此处为新加，我觉得它写的Graph.java不够完美，完成clab9有困难。
+     *
+     */
+    public Node getNode(String label) {
+        return nodes.get(label);
+    }
     /**
      * Creates an edge from predecessor to successor. If nodes do not exist,
      * will add the nodes to the graph.
@@ -61,7 +66,7 @@ public class Graph {
         return toReturn;
     }
 
-    class Node {
+    public class Node {
         private String label;
 
         private Set<Node> neighbors;

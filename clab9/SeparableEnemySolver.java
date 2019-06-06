@@ -23,10 +23,43 @@ public class SeparableEnemySolver {
      * Returns true if input is separable, false otherwise.
      */
     public boolean isSeparable() {
-        // TODO: Fix me
-        return false;
+        Set<String> s1, s2, nows, others;
+        s1 = new HashSet<>();
+        s2 = new HashSet<>();
+        Set<Graph.Node> contains = new HashSet<>();
+        for (String s : g.labels()) {
+            if (s1.contains(s) || s2.contains(s)) {
+                continue;
+            } else {
+                s1.add(s);
+                Graph.Node curr = g.getNode(s);
+                nows = s2;
+                others = s1;
+                if (!helpseparable(nows, others, curr, contains))
+                    return false;
+            }
+        }
+        return true;
     }
 
+    /**
+     *轮番将与curr相连的Node加入到s1 and s2中，无法完成则返回false，否则true
+     */
+    private boolean helpseparable(Set<String> nows, Set<String> others, Graph.Node curr, Set<Graph.Node> contains) {
+        contains.add(curr);
+        for (Graph.Node newone : curr.getNeighbors()) {
+            if (others.contains(newone.getLabel())) {
+                return false;
+            }
+            nows.add(newone.getLabel());
+        }
+        for (Graph.Node newone : curr.getNeighbors()) {
+            if (!contains.contains(newone) && !helpseparable(others, nows, newone, contains)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     /* HELPERS FOR READING IN CSV FILES. */
 
