@@ -1,5 +1,8 @@
 package bearmaps.proj2c;
 
+import bearmaps.hw4.WeightedEdge;
+
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -24,10 +27,9 @@ public class Router {
      */
     public static List<Long> shortestPath(AugmentedStreetMapGraph g, double stlon, double stlat,
                                           double destlon, double destlat) {
-        //long src = g.closest(stlon, stlat);
-        //long dest = g.closest(destlon, destlat);
-        //return new WeirdSolver<>(g, src, dest, 20).solution();
-        return null;
+        long src = g.closest(stlon, stlat);
+        long dest = g.closest(destlon, destlat);
+        return new WeirdSolver<>(g, src, dest, 20).solution();
     }
 
     /**
@@ -39,10 +41,80 @@ public class Router {
      * route.
      */
     public static List<NavigationDirection> routeDirections(AugmentedStreetMapGraph g, List<Long> route) {
-        /* fill in for part IV */
-        return null;
+        List<NavigationDirection> results = new LinkedList<>();
+        List<WeightedEdge<Long>> ways = getWays(g, route);
+        double preWayDist = 0;  //The total distance of the curr way up to now.
+        int preDir = NavigationDirection.START; //Each route should start with a "start" direction.
+        int curDir;
+        //Corner case, direction should be START.
+        if (ways.size() == 1) {
+            results.add(setDir(preDir, ways.get(0).getName(), ways.get(0).weight()));
+            return results;
+        }
+        //Normal case, we need to consider two edges to decide the direction.
+        for (int i = 1; i < ways.size(); i++) {
+            WeightedEdge<Long> preEdge = ways.get(i - 1);
+            WeightedEdge<Long> curEdge = ways.get(i);
+
+            String preName = (preEdge.getName() != null) ? preEdge.getName() : "unknown road";
+            String curName = (curEdge.getName() != null) ? curEdge.getName() : "unknown road";
+
+            Long preVertex = preEdge.from();
+            Long curVertex = preEdge.to();
+            Long nextVertex = curEdge.to();
+
+            double[] prePos = getPos(g, preVertex);
+            double[] curPos = getPos(g, curVertex);
+            double[] nextPos = getPos(g, nextVertex);
+            preWayDist += preEdge.weight();
+            if (!preName.equals(curName)) { //End the current navigation and change to a new one.
+                double preBearing = NavigationDirection.bearing(prePos[0], curPos[0], prePos[1], curPos[1]);
+                double curBearing = NavigationDirection.bearing(curPos[0], nextPos[0], curPos[1], nextPos[1]);
+                curDir = NavigationDirection.getDirection(preBearing, curBearing);
+                NavigationDirection lastNavi = setDir(preDir, preName, preWayDist);
+                results.add(lastNavi);
+                preDir = curDir;
+                preWayDist = 0;
+            }
+            if (i == ways.size() - 1) {
+                preWayDist += curEdge.weight();
+                NavigationDirection endNavi = setDir(preDir, curName, preWayDist);
+                results.add(endNavi);
+            }
+        }
+        return results;
+    }
+    private static List<WeightedEdge<Long>> getWays(AugmentedStreetMapGraph g, List<Long> route) {
+        List<WeightedEdge<Long>> ways = new LinkedList<>();
+        for (int i = 1; i < route.size(); i++) {
+            Long preVertex = route.get(i - 1);
+            Long currVertex = route.get(i);
+            for (WeightedEdge<Long> edge: g.neighbors(preVertex)) {
+                if (edge.to().equals(currVertex)) {
+                    ways.add(edge);
+                    break;
+                }
+            }
+        }
+        return ways;
     }
 
+    /**
+     * This function acts like a constructor should be in the NavigationDirection class.
+     */
+    private static NavigationDirection setDir(int direction, String way, double distance) {
+        NavigationDirection dir = new NavigationDirection();
+        dir.direction = direction;
+        dir.way = way;
+        dir.distance = distance;
+        return dir;
+    }
+    /**
+     * Get the position of the Vertex.
+     */
+    private static double[] getPos(AugmentedStreetMapGraph g, Long id) {
+        return new double[]{g.lon(id), g.lat(id)};
+    }
     /**
      * Class to represent a navigation direction, which consists of 3 attributes:
      * a direction to go, a way, and the distance to travel for. This is only

@@ -17,8 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static bearmaps.proj2c.utils.Constants.SEMANTIC_STREET_GRAPH;
-import static bearmaps.proj2c.utils.Constants.ROUTE_LIST;
+import static bearmaps.proj2c.utils.Constants.*;
 
 /**
  * Handles requests from the web browser for map images. These images
@@ -87,8 +86,50 @@ public class RasterAPIHandler extends APIRouteHandler<Map<String, Double>, Map<S
         //System.out.println("yo, wanna know the parameters given by the web browser? They are:");
         //System.out.println(requestParams);
         Map<String, Object> results = new HashMap<>();
-        System.out.println("Since you haven't implemented RasterAPIHandler.processRequest, nothing is displayed in "
-                + "your browser.");
+        //Get the parameters.
+        double lrlon = requestParams.get("lrlon");
+        double ullon = requestParams.get("ullon");
+        double ullat = requestParams.get("ullat");
+        double lrlat = requestParams.get("lrlat");
+        double w = requestParams.get("w");
+        double h = requestParams.get("h");
+        //Validate the parameters
+        if (lrlon <= ullon || ullat <= lrlat || lrlon <= ROOT_ULLON || ullon >= ROOT_LRLON || ullat <= ROOT_LRLAT || lrlat >= ROOT_ULLAT) {
+            results.put("query_success", false);
+            return results;
+        }
+        //Judge which depth of images to use.
+        double boxLonDPP = (lrlon - ullon) / w;
+        double maxLonDPP = (ROOT_LRLON - ROOT_ULLON) / TILE_SIZE;
+        int depth = 0, maxIndex = 1;  //Test depth from 0 to 7.
+        while (maxLonDPP > boxLonDPP && depth < MAX_DEPTH) {
+            depth++;
+            maxLonDPP /= 2;
+            maxIndex *= 2;
+        }
+        maxIndex--;
+        //Choose the images.
+        int xWest, xEast, yNorth, ySouth;   //
+        double imgLon, imgLat;  //Longitude distance and Latitude distance per image.
+        imgLon = maxLonDPP * TILE_SIZE;
+        imgLat = imgLon / (ROOT_LRLON - ROOT_ULLON) * (ROOT_ULLAT - ROOT_LRLAT);
+        xWest = Math.max(0, (int)Math.floor((ullon - ROOT_ULLON) / imgLon));
+        xEast = Math.min(maxIndex, (int)Math.floor((lrlon - ROOT_ULLON) / imgLon));
+        yNorth = Math.max(0, (int)Math.floor((ROOT_ULLAT - ullat) / imgLat));
+        ySouth = Math.min(maxIndex, (int)Math.floor((ROOT_ULLAT - lrlat) / imgLat));
+        String[][] render_grid = new String[ySouth - yNorth + 1][xEast - xWest + 1];
+        for (int yIndex = yNorth; yIndex <= ySouth; yIndex++) {
+            for (int xIndex = xWest; xIndex <= xEast; xIndex++) {
+                render_grid[yIndex - yNorth][xIndex - xWest] = "d" + depth + "_x" + xIndex + "_y" + yIndex + ".png";
+            }
+        }
+        results.put("render_grid", render_grid);
+        results.put("raster_ul_lon", ROOT_ULLON + imgLon * xWest);
+        results.put("raster_lr_lon", ROOT_ULLON + imgLon * (1 + xEast));
+        results.put("raster_ul_lat", ROOT_ULLAT - imgLat * yNorth);
+        results.put("raster_lr_lat", ROOT_ULLAT - imgLat * (1 + ySouth));
+        results.put("query_success", true);
+        results.put("depth", depth);
         return results;
     }
 
