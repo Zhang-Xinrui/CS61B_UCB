@@ -12,15 +12,15 @@
   - [proj2c]
   * [bearmaps]
     + [graph]: 
-      - [AStarGraph](#astargraph)
+      - [AStarGraph]: Defines the graph that can use A* search.
       - [AStarSolver](#astarsolver)
       - [AugmentedStreetMapGraph](#augmentedstreetmapgraph)
       - [GraphBuildingHandler](#graphbuildinghandler)
       - [Node]: Vertex representation for the graph.
       - [ShortestPathsSolver](#shortestpathssolver)
       - [SolverOutcome](#solveroutcome)
-      - [StreetMapGraph](#streetmapgraph)
-      - [WeightedEdge](#weightededge)
+      - [StreetMapGraph]: Implements *AStarGraph*.
+      - [WeightedEdge]: Edge representation for the graph.
     + [proj2c]
       - [KDTree](#kdtree)
       - [MinPQ](#minpq)
