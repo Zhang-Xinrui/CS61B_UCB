@@ -9,26 +9,26 @@
 
 ## Project Structure
   
-  - [proj2c](#proj2c)
-  * [bearmaps](#bearmaps)
-    + [graph](#graph)
+  - [proj2c]
+  * [bearmaps]
+    + [graph]: 
       - [AStarGraph](#astargraph)
       - [AStarSolver](#astarsolver)
       - [AugmentedStreetMapGraph](#augmentedstreetmapgraph)
       - [GraphBuildingHandler](#graphbuildinghandler)
-      - [Node](#node)
+      - [Node]: Vertex representation for the graph.
       - [ShortestPathsSolver](#shortestpathssolver)
       - [SolverOutcome](#solveroutcome)
       - [StreetMapGraph](#streetmapgraph)
       - [WeightedEdge](#weightededge)
-    + [proj2c](#proj2c-1)
+    + [proj2c]
       - [KDTree](#kdtree)
       - [MinPQ](#minpq)
       - [server.handler](#serverhandler)
       - [TrieSet](#trieset)
       - [util](#util)
-      - [MapServer](#mapserver)
-      - [MapServerInitializer](#mapserverinitializer)
+      - [MapServer]: The entrance of the whole project.
+      - [MapServerInitializer]: Initialization statements
   * [static/page]: Front end files.
 
 ## Demos 
