@@ -29,7 +29,7 @@
       - [util](#util)
       - [MapServer](#mapserver)
       - [MapServerInitializer](#mapserverinitializer)
-  * [static/page](Front end files)
+  * [static/page](#Front end files)
 
 ## Demos 
 
