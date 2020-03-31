@@ -6,7 +6,8 @@
 <li>Autocomplete and Search place.</li>
 <li>Navigation</li>
 </ol>
- **Demos** <br>
+## Demos 
+
 Map rastering<br>
 <img src="https://media.giphy.com/media/gdNtnEYJpli6GJ3kXM/giphy.gif" >
 Autocomplete and search<br>
