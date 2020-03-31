@@ -9,7 +9,7 @@
 
 ## Project Structure
   
-  - [proj2c]
+  
   * [bearmaps]
     + [graph]: 
       - [AStarGraph]: Interface for the graph that can use A* search.
