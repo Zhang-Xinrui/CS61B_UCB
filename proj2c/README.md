@@ -13,7 +13,7 @@
   * [bearmaps]
     + [graph]: 
       - [Node]: Vertex representation for the graph.
-      - [WeightedEdge]: Edge representation for the graph.<br>
+      - [WeightedEdge]: Edge representation for the graph.
       - [AStarGraph]: Interface for the graph that can use A* search.
       - [StreetMapGraph]: Implements *AStarGraph*. Uses *GraphBuildingHandler* to help build the graph from the XML file. 
       - [AugmentedStreetMapGraph]: Extends *StreetMapGraph*. Supports prefix-match and find-closest Using *TrieSet* and *KDTree*.
@@ -21,17 +21,15 @@
       - [ShortestPathsSolver]: Interface for shortest path solvers.
       - [AStarSolver]: Implements *ShortestPathsSolver* using A* search and *MinPQ*.
       - [SolverOutcome]: An enum class expressing different types of A* results: solved, unsolvable and timeout.
-      
-      
     + [proj2c]
       - [KDTree]
       - [MinPQ]: A special type of priority queue. The priority is extrinsic to the object and we can change the priority of a object in the queue.
+      - [TrieSet]
       - [server.handler]
-        * [impl]：Classes for handling different types of API requests.
         * [APIRouteHandler]: The base class that defines the procedure for handling an API request.
+        * [impl]：Classes for handling different types of API requests.
         * [APIRouteHandlerFactory]: Defines the action that needs to be taken in case of each request.
         * [Router]: A helper for the *RoutingAPIHandler*.
-      - [TrieSet]
       - [util]
       - [MapServer]: The entrance of the whole project.
       - [MapServerInitializer]: Initialization statements before the server main loop. Builds the graph of the bearmap and instantiates all types of APIhandlers.
