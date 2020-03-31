@@ -6,6 +6,7 @@
 <li>Autocomplete and Search place.</li>
 <li>Navigation</li>
 </ol>
+
 ## Demos 
 
 Map rastering<br>
