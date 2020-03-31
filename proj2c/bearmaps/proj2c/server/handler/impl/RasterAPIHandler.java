@@ -1,6 +1,6 @@
 package bearmaps.proj2c.server.handler.impl;
 
-import bearmaps.proj2c.AugmentedStreetMapGraph;
+import bearmaps.graph.AugmentedStreetMapGraph;
 import bearmaps.proj2c.server.handler.APIRouteHandler;
 import spark.Request;
 import spark.Response;

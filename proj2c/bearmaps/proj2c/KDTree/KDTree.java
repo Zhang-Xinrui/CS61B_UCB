@@ -1,4 +1,4 @@
-package bearmaps.proj2c;
+package bearmaps.proj2c.KDTree;
 
 import java.util.Comparator;
 import java.util.List;
@@ -11,7 +11,6 @@ public class KDTree {
     private Point target;
 /**
  * Create a balanced KDTree and choose the dimension having the max variance to be used by root.
- * You may find the implementation quite stupid, but I'v got little time.
  * @author ZXR 03-17-20
  */
     public KDTree(List<Point> points) {
@@ -21,22 +20,17 @@ public class KDTree {
             meanY += point.getY();
         }
         meanX /= points.size(); meanY /= points.size();
-        for (Point point: points) { //Note: may overflow??
+        for (Point point: points) {
             varianceX += Math.pow(point.getX() - meanX, 2);
             varianceY += Math.pow(point.getY() - meanY, 2);
         }
-        int rootIndex = points.size() / 2;
         boolean dimension;
-        if (varianceX > varianceY) {  //X first
-            points.sort(new Comparex());
+        if (varianceX > varianceY) {
             dimension = true;
         } else {
-            points.sort(new Comparey());
             dimension = false;
         }
-        root = new KDTreeNode(points.get(rootIndex), dimension);
-        root.left = help(points.subList(0, rootIndex), !dimension);
-        root.right = help(points.subList(rootIndex + 1, points.size()), !dimension);
+        root = help(points, dimension);
     }
     //Need to sort many times, any improved algorithms??
     private KDTreeNode help(List<Point> points, boolean dimension) {
@@ -50,8 +44,8 @@ public class KDTree {
         }
         int rootIndex = points.size() / 2;
         KDTreeNode root = new KDTreeNode(points.get(rootIndex), dimension);
-        root.left = help(points.subList(0, rootIndex), !dimension);
-        root.right = help(points.subList(rootIndex + 1, points.size()), !dimension);
+        root.setLeft(help(points.subList(0, rootIndex), !dimension));
+        root.setRight(help(points.subList(rootIndex + 1, points.size()), !dimension));
         return root;
     }
 
@@ -59,20 +53,12 @@ public class KDTree {
         @Override
         public int compare(Point p1, Point p2) {
             return Double.compare(p1.getX(), p2.getX());
-            /*if (p1.getX() < p2.getX()) {
-                return -1;
-            } else if (p1)
-            return 1;*/
         }
     }
     private class Comparey implements Comparator<Point> {
         @Override
         public int compare(Point p1, Point p2) {
             return Double.compare(p1.getY(), p2.getY());
-            /*if (p1.getY() < p2.getY()) {
-                return -1;
-            }
-            return 1;*/
         }
     }
 
@@ -91,7 +77,7 @@ public class KDTree {
         rootX = root.getPoint().getX();
         rootY = root.getPoint().getY();
         double minDistance;         //Used to estimate minimum Distance of the bad side of the root.
-        boolean leftFirst = false;  //left node first?
+        boolean leftFirst = false;
         if (root.getDimension()) {
             minDistance = Math.abs(rootX - target.getX());
             if (target.getX() < rootX) {
@@ -139,7 +125,7 @@ public class KDTree {
             }
         }
     }
-    public class KDTreeNode {
+    private class KDTreeNode {
         private Point point;
         private KDTreeNode left, right;
         private boolean dimension; // true for x and false for y
@@ -152,5 +138,11 @@ public class KDTree {
         public KDTreeNode getLeft() { return left;}
         public KDTreeNode getRight() { return right;}
         public boolean getDimension() { return dimension;}
+        public void setLeft(KDTreeNode left) {
+            this.left = left;
+        }
+        public void setRight(KDTreeNode right) {
+            this.right = right;
+        }
     }
 }

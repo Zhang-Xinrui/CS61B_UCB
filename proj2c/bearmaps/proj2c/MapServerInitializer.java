@@ -1,5 +1,6 @@
 package bearmaps.proj2c;
 
+import bearmaps.graph.AugmentedStreetMapGraph;
 import bearmaps.proj2c.server.handler.APIRouteHandler;
 import bearmaps.proj2c.utils.Constants;
 

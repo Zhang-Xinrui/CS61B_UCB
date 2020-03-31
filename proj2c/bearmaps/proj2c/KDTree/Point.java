@@ -1,4 +1,4 @@
-package bearmaps.proj2c;
+package bearmaps.proj2c.KDTree;
 
 import java.util.Objects;
 

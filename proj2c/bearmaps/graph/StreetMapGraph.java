@@ -1,7 +1,5 @@
-package bearmaps.hw4.streetmap;
+package bearmaps.graph;
 
-import bearmaps.hw4.AStarGraph;
-import bearmaps.hw4.WeightedEdge;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;

@@ -1,6 +1,8 @@
-package bearmaps.proj2c;
+package bearmaps.proj2c.server.handler;
 
-import bearmaps.hw4.WeightedEdge;
+import bearmaps.graph.AStarSolver;
+import bearmaps.graph.AugmentedStreetMapGraph;
+import bearmaps.graph.WeightedEdge;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -29,7 +31,7 @@ public class Router {
                                           double destlon, double destlat) {
         long src = g.closest(stlon, stlat);
         long dest = g.closest(destlon, destlat);
-        return new WeirdSolver<>(g, src, dest, 20).solution();
+        return new AStarSolver<>(g, src, dest, 20).solution();
     }
 
     /**

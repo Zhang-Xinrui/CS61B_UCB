@@ -1,20 +1,21 @@
-package bearmaps.proj2c;
+package bearmaps.graph;
 
-import bearmaps.hw4.streetmap.Node;
-import bearmaps.hw4.streetmap.StreetMapGraph;
+import bearmaps.proj2c.KDTree.KDTree;
+import bearmaps.proj2c.TrieSet.MyTrieSet;
+import bearmaps.proj2c.KDTree.Point;
 
 import java.util.*;
 
 /**
  * An augmented graph that is more powerful that a standard StreetMapGraph.
  * Specifically, it supports the following additional operations:
- *
- *
+ *  1. Find the vertex closest to the given longitude and latitude.
+ *  2. In linear time, collect all the names of OSM locations that prefix-match the query string.
  * @author Alan Yao, Josh Hug, ________
  */
 public class AugmentedStreetMapGraph extends StreetMapGraph {
     private KDTree kdtree;
-    private Map<Point, Node> pointToNode;//The KDTree class only supports Point, so here is a map.
+    private Map<Point, Node> pointToNode;
 
     private MyTrieSet trieSet;
     private Map<String, List<Node>> nameToNodes;
@@ -22,7 +23,7 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
     public AugmentedStreetMapGraph(String dbPath) {
         super(dbPath);
 
-        List<Node> nodes = this.getNodes(); //Construct the kdTree.
+        List<Node> nodes = this.getNodes();
         List<Point> points = new LinkedList<>();
         pointToNode = new HashMap<>();
         for (Node node: nodes) {
@@ -70,10 +71,10 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
      * @return A <code>List</code> of the full names of locations whose cleaned name matches the
      * cleaned <code>prefix</code>.
      */
-    public List<String> getLocationsByPrefix(String prefix) {
+    public List<String> getLocationsByPrefix(String prefix) { //注意：返回的是真实name，而非clean后的name
         String cleanedPrefix = cleanString(prefix);
         List<String> matchedNames = trieSet.keysWithPrefix(cleanedPrefix);
-        Set<String> result = new HashSet<>();//Use a set to avoid duplicates.
+        Set<String> result = new HashSet<>();
         if (matchedNames != null) {
             for (String cleanedName: matchedNames) {
                 for (Node node: nameToNodes.get(cleanedName)) {

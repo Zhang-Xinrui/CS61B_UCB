@@ -1,4 +1,4 @@
-package bearmaps.proj2c;
+package bearmaps.proj2c.TrieSet;
 
 import java.util.*;
 
@@ -71,13 +71,6 @@ public class MyTrieSet implements TrieSet61B{
             helpprefix(child.getValue(), keys, prefix + child.getKey());
         }
     }
-    /** Returns the longest prefix of KEY that exists in the Trie
-     * Not required for Lab 9. If you don't implement this, throw an
-     * UnsupportedOperationException.
-     */
-    public String longestPrefixOf(String key) {
-        throw new UnsupportedOperationException();
-        }
 
     private class Node {
         Map<Character, Node> children;

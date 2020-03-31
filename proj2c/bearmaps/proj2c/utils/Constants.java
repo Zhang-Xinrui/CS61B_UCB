@@ -1,6 +1,6 @@
 package bearmaps.proj2c.utils;
 
-import bearmaps.proj2c.AugmentedStreetMapGraph;
+import bearmaps.graph.AugmentedStreetMapGraph;
 
 import java.awt.*;
 import java.util.LinkedList;

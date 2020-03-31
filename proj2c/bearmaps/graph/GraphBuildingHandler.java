@@ -1,4 +1,4 @@
-package bearmaps.hw4.streetmap;
+package bearmaps.graph;
 
 
 import org.xml.sax.Attributes;
