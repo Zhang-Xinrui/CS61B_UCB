@@ -4,5 +4,5 @@
 <ol>
 <li>Zoom in and zoom out.</li>
 <li>Search place.</li>
-<li>Navigation from a place to another.</li>
+<li>Navigation</li>
 </ol>
