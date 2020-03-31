@@ -10,8 +10,9 @@
 
 Map rastering<br>
 <img src="https://media.giphy.com/media/gdNtnEYJpli6GJ3kXM/giphy.gif" >
+
 Autocomplete and search<br>
 <img src="https://media.giphy.com/media/mF49G0H2YzxoDUl4n6/giphy.gif" >
-Navigation<br>
 
+Navigation<br>
 <img src="https://media.giphy.com/media/J5YeArVoe51PTftMtE/giphy.gif" >
