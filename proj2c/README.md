@@ -12,15 +12,17 @@
   
   * [bearmaps]
     + [graph]: 
+      - [Node]: Vertex representation for the graph.
+      - [WeightedEdge]: Edge representation for the graph.<br>
       - [AStarGraph]: Interface for the graph that can use A* search.
-      - [AStarSolver]: Implements *ShortestPathsSolver* using A* search and *MinPQ*.
+      - [StreetMapGraph]: Implements *AStarGraph*. Uses *GraphBuildingHandler* to help build the graph from the XML file. 
       - [AugmentedStreetMapGraph]: Extends *StreetMapGraph*. Supports prefix-match and find-closest Using *TrieSet* and *KDTree*.
       - [GraphBuildingHandler]: Helps to build the graph from the XML file.
-      - [Node]: Vertex representation for the graph.
       - [ShortestPathsSolver]: Interface for shortest path solvers.
+      - [AStarSolver]: Implements *ShortestPathsSolver* using A* search and *MinPQ*.
       - [SolverOutcome]: An enum class expressing different types of A* results: solved, unsolvable and timeout.
-      - [StreetMapGraph]: Implements *AStarGraph*. Uses *GraphBuildingHandler* to help build the graph from the XML file. 
-      - [WeightedEdge]: Edge representation for the graph.
+      
+      
     + [proj2c]
       - [KDTree]
       - [MinPQ]: A special type of priority queue. The priority is extrinsic to the object and we can change the priority of a object in the queue.
