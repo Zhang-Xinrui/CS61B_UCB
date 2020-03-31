@@ -7,6 +7,30 @@
 <li>Navigation</li>
 </ol>
 
+## Project Structure
+  
+  - [proj2c](#proj2c)
+  * [bearmaps](#bearmaps)
+    + [graph](#graph)
+      - [AStarGraph](#astargraph)
+      - [AStarSolver](#astarsolver)
+      - [AugmentedStreetMapGraph](#augmentedstreetmapgraph)
+      - [GraphBuildingHandler](#graphbuildinghandler)
+      - [Node](#node)
+      - [ShortestPathsSolver](#shortestpathssolver)
+      - [SolverOutcome](#solveroutcome)
+      - [StreetMapGraph](#streetmapgraph)
+      - [WeightedEdge](#weightededge)
+    + [proj2c](#proj2c-1)
+      - [KDTree](#kdtree)
+      - [MinPQ](#minpq)
+      - [server.handler](#serverhandler)
+      - [TrieSet](#trieset)
+      - [util](#util)
+      - [MapServer](#mapserver)
+      - [MapServerInitializer](#mapserverinitializer)
+  * [static/page](#static-page)
+
 ## Demos 
 
 Map rastering<br>
